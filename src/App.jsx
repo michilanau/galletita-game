@@ -3,15 +3,15 @@ import { Square } from './components/Square'
 import { updateAdjacentBorders, updateBoardValues } from './logic/board.js'
 
 function App () {
-  const [board, setBoard] = useState([[{ linesSelected: [false, false, false, false], value: false },
+  const [board, setBoard] = useState([[{ linesSelected: [true, false, false, true], value: false },
+    { linesSelected: [true, false, false, false], value: false },
+    { linesSelected: [true, true, false, false], value: false }],
+  [{ linesSelected: [false, false, false, true], value: false },
     { linesSelected: [false, false, false, false], value: false },
-    { linesSelected: [false, false, false, false], value: false }],
-  [{ linesSelected: [false, false, false, false], value: false },
-    { linesSelected: [false, false, false, false], value: false },
-    { linesSelected: [false, false, false, false], value: false }],
-  [{ linesSelected: [false, false, false, false], value: false },
-    { linesSelected: [false, false, false, false], value: false },
-    { linesSelected: [false, false, false, false], value: false }]])
+    { linesSelected: [false, true, false, false], value: false }],
+  [{ linesSelected: [false, false, true, true], value: false },
+    { linesSelected: [false, false, true, false], value: false },
+    { linesSelected: [false, true, true, false], value: false }]])
 
   const updateBoard = (linesSelected, index, borderIndex) => {
     let newBoard = [...board]

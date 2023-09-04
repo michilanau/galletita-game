@@ -26,13 +26,11 @@
     height: 4px;
     background-color: black;
     cursor: pointer;
-    border-width: 20px;
 }
 
 .line.selected {
     font-weight: bold;
-    background-color: blue;
-    height: 10px;
+    background-color: rgb(0, 162, 255);
 }
 
 .top {
@@ -40,7 +38,6 @@
 }
 
 .left {
-    right: 0;
     transform-origin: top left;
     transform: rotate(90deg);
 }
@@ -50,7 +47,15 @@
 }
 
 .right {
-    left: 0;
     transform-origin: top right;
     transform: rotate(-90deg);
+}
+
+.value {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
 }

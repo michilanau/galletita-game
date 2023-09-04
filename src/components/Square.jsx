@@ -1,7 +1,7 @@
 export const Square = ({ updateBoard, linesSelected, index, value }) => {
   const handleLineClick = (borderIndex) => {
     const newLinesSelected = [...linesSelected]
-    newLinesSelected[borderIndex] = !newLinesSelected[borderIndex]
+    newLinesSelected[borderIndex] = true
     updateBoard(newLinesSelected, index, borderIndex)
   }
 
@@ -23,7 +23,7 @@ export const Square = ({ updateBoard, linesSelected, index, value }) => {
         className={`line left ${linesSelected[3] ? 'selected' : ''}`}
         onClick={() => handleLineClick(3)}
         ></div>
-        {value ? 'X' : ''}
+        <div className="value">{value ? '🍪' : ''}</div>
     </div>
   )
 }
