@@ -1,23 +1,36 @@
 import React, { useState } from 'react'
 import { Square } from './components/Square'
-import { updateAdjacentBorders, updateBoardValues } from './logic/board.js'
+import { countPoints, updateAdjacentBorders, updateBoardValues } from './logic/board.js'
+import { TURNS } from './constants'
 
 function App () {
-  const [board, setBoard] = useState([[{ linesSelected: [true, false, false, true], value: false },
-    { linesSelected: [true, false, false, false], value: false },
-    { linesSelected: [true, true, false, false], value: false }],
-  [{ linesSelected: [false, false, false, true], value: false },
-    { linesSelected: [false, false, false, false], value: false },
-    { linesSelected: [false, true, false, false], value: false }],
-  [{ linesSelected: [false, false, true, true], value: false },
-    { linesSelected: [false, false, true, false], value: false },
-    { linesSelected: [false, true, true, false], value: false }]])
+  const [board, setBoard] = useState([[{ linesSelected: [true, false, false, true], value: '' },
+    { linesSelected: [true, false, false, false], value: '' },
+    { linesSelected: [true, true, false, false], value: '' }],
+  [{ linesSelected: [false, false, false, true], value: '' },
+    { linesSelected: [false, false, false, false], value: '' },
+    { linesSelected: [false, true, false, false], value: '' }],
+  [{ linesSelected: [false, false, true, true], value: '' },
+    { linesSelected: [false, false, true, false], value: '' },
+    { linesSelected: [false, true, true, false], value: '' }]])
+
+  const [turn, setTurn] = useState(TURNS.X)
+
+  const [points, setPoints] = useState({ x: 0, o: 0 })
 
   const updateBoard = (linesSelected, index, borderIndex) => {
     let newBoard = [...board]
     newBoard[index[0]][index[1]].linesSelected = linesSelected
     newBoard = updateAdjacentBorders(newBoard, index, borderIndex)
-    newBoard = updateBoardValues(newBoard)
+    newBoard = updateBoardValues(newBoard, turn)
+    const newPoints = countPoints(newBoard, points)
+    if (newPoints.x === points.x && newPoints.o === points.o) {
+      const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+      setTurn(newTurn)
+    }
+    setPoints(newPoints)
+    console.log(points)
+    console.log(turn)
     setBoard(newBoard)
   }
 
@@ -30,7 +43,7 @@ function App () {
             row.map((square, columnIndex) => {
               return (
                 <Square
-                  key={rowIndex + columnIndex}
+                  key={rowIndex + '' + columnIndex}
                   index={[rowIndex, columnIndex]}
                   updateBoard={updateBoard}
                   linesSelected={square.linesSelected}
@@ -40,6 +53,10 @@ function App () {
             })
           ))
         }
+      </section>
+      <section>
+        {TURNS.X}: {points.x}
+        {TURNS.O}: {points.o}
       </section>
     </div>
   )

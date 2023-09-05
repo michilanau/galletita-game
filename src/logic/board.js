@@ -1,26 +1,32 @@
+import { TURNS } from '../constants.js'
+
 export const updateAdjacentBorders = (board, index, borderIndex) => {
+  const top = 0
+  const right = 1
+  const bottom = 2
+  const left = 3
   const newBoard = [...board]
   const square = board[index[0]][index[1]]
 
-  if (borderIndex === 0) {
+  if (borderIndex === top) {
     if (checkValidIndex(index[0] - 1, index[1], newBoard)) {
       newBoard[index[0] - 1][index[1]].linesSelected[2] = square.linesSelected[borderIndex]
     }
   }
 
-  if (borderIndex === 1) {
+  if (borderIndex === right) {
     if (checkValidIndex(index[0], index[1] + 1, newBoard)) {
       newBoard[index[0]][index[1] + 1].linesSelected[3] = square.linesSelected[borderIndex]
     }
   }
 
-  if (borderIndex === 2) {
+  if (borderIndex === bottom) {
     if (checkValidIndex(index[0] + 1, index[1], newBoard)) {
       newBoard[index[0] + 1][index[1]].linesSelected[0] = square.linesSelected[borderIndex]
     }
   }
 
-  if (borderIndex === 3) {
+  if (borderIndex === left) {
     if (checkValidIndex(index[0], index[1] - 1, newBoard)) {
       newBoard[index[0]][index[1] - 1].linesSelected[1] = square.linesSelected[borderIndex]
     }
@@ -37,7 +43,7 @@ const checkValidIndex = (row, column, board) => {
   }
 }
 
-export const updateBoardValues = (board) => {
+export const updateBoardValues = (board, turn) => {
   const newBoard = [...board]
   let allTrue = true
 
@@ -49,12 +55,24 @@ export const updateBoardValues = (board) => {
           allTrue = false
         }
       }
-      if (allTrue) {
-        newBoard[i][j].value = true
-      } else {
-        newBoard[i][j].value = false
+      if (allTrue && newBoard[i][j].value === '') {
+        newBoard[i][j].value = turn
       }
     }
   }
   return newBoard
+}
+
+export const countPoints = (board) => {
+  const newPoints = { x: 0, o: 0 }
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board[i].length; j++) {
+      if (board[i][j].value === TURNS.X) {
+        newPoints.x++
+      } else if (board[i][j].value === TURNS.O) {
+        newPoints.o++
+      }
+    }
+  }
+  return newPoints
 }
