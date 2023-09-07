@@ -1,5 +1,6 @@
-.App {
-    text-align: center;
+:root {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-image: linear-gradient(to right, #c6ffdd, #fbd786, #fe8f93);
 }
 
 .board {
@@ -26,6 +27,7 @@
     height: 4px;
     background-color: black;
     cursor: pointer;
+
 }
 
 .line.selected {
@@ -58,4 +60,17 @@
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 3em;
+}
+
+.board .turn {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto;
+    width: 50px;
+    position: relative;
+    border-radius: 5px;
+}
+
+.turn.is-turn {
+    background-color: aqua;
 }

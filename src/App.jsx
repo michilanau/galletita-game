@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Square } from './components/Square'
 import { countPoints, updateAdjacentBorders, updateBoardValues } from './logic/board.js'
 import { TURNS } from './constants'
+import { TurnAndPoints } from './components/TurnAndPoints'
 
 function App () {
   const [board, setBoard] = useState([[{ linesSelected: [true, false, false, true], value: '' },
@@ -33,7 +34,7 @@ function App () {
   }
 
   return (
-    <div className="board">
+    <div className="board" >
       <h1>Galletita game</h1>
       <section className='game3x3'>
         {
@@ -52,10 +53,8 @@ function App () {
           ))
         }
       </section>
-      <section>
-        {TURNS.X}: {points.x}
-        {TURNS.O}: {points.o}
-      </section>
+      <TurnAndPoints turn={TURNS.X} points={points.x} isTurn={turn === TURNS.X}/>
+      <TurnAndPoints turn={TURNS.O} points={points.o} isTurn={turn === TURNS.O}/>
     </div>
   )
 }
