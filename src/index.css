@@ -74,3 +74,38 @@
 .turn.is-turn {
     background-color: aqua;
 }
+
+.winner {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.winner .text {
+    background: #d6f53b;
+    height: 300px;
+    width: 320px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.text .result {
+    font-size: 2em;
+}
+
+.winner .win {
+    width: fit-content;
+    font-size: 3em;
+    display: flex;
+    gap: 15px;
+}

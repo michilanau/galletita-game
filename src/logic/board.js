@@ -76,3 +76,11 @@ export const countPoints = (board) => {
   }
   return newPoints
 }
+
+export const checkEndGame = (newBoard) => {
+  return newBoard.every((row) =>
+    row.every((column) =>
+      column.linesSelected.every((line) => line === true)
+    )
+  )
+}

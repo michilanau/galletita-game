@@ -1,23 +1,16 @@
 import React, { useState } from 'react'
 import { Square } from './components/Square'
-import { countPoints, updateAdjacentBorders, updateBoardValues } from './logic/board.js'
-import { TURNS } from './constants'
+import { checkEndGame, countPoints, updateAdjacentBorders, updateBoardValues } from './logic/board.js'
+import { TURNS, BOARD } from './constants'
 import { TurnAndPoints } from './components/TurnAndPoints'
+import { WinnerModal } from './components/WinnerModal'
+import confetti from 'canvas-confetti'
 
 function App () {
-  const [board, setBoard] = useState([[{ linesSelected: [true, false, false, true], value: '' },
-    { linesSelected: [true, false, false, false], value: '' },
-    { linesSelected: [true, true, false, false], value: '' }],
-  [{ linesSelected: [false, false, false, true], value: '' },
-    { linesSelected: [false, false, false, false], value: '' },
-    { linesSelected: [false, true, false, false], value: '' }],
-  [{ linesSelected: [false, false, true, true], value: '' },
-    { linesSelected: [false, false, true, false], value: '' },
-    { linesSelected: [false, true, true, false], value: '' }]])
-
+  const [board, setBoard] = useState(JSON.parse(JSON.stringify(BOARD)))
   const [turn, setTurn] = useState(TURNS.X)
-
   const [points, setPoints] = useState({ x: 0, o: 0 })
+  const [winner, setWinner] = useState(null)
 
   const updateBoard = (linesSelected, index, borderIndex) => {
     let newBoard = [...board]
@@ -31,6 +24,26 @@ function App () {
     }
     setPoints(newPoints)
     setBoard(newBoard)
+
+    if (checkEndGame(newBoard)) {
+      if (newPoints.o === newPoints.y) {
+        setWinner(false)
+      } else {
+        confetti()
+        if (newPoints.o > newPoints.x) {
+          setWinner(TURNS.O)
+        } else {
+          setWinner(TURNS.X)
+        }
+      }
+    }
+  }
+
+  const resetGame = () => {
+    setBoard(JSON.parse(JSON.stringify(BOARD)))
+    setTurn(TURNS.X)
+    setPoints({ x: 0, o: 0 })
+    setWinner(null)
   }
 
   return (
@@ -55,6 +68,9 @@ function App () {
       </section>
       <TurnAndPoints turn={TURNS.X} points={points.x} isTurn={turn === TURNS.X}/>
       <TurnAndPoints turn={TURNS.O} points={points.o} isTurn={turn === TURNS.O}/>
+
+      <WinnerModal resetGame={resetGame} winner={winner} />
+
     </div>
   )
 }
