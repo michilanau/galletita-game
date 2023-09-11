@@ -1,6 +1,6 @@
 import { equalsCheck } from '../logic/utils.js'
 
-export const Square = ({ updateBoard, linesSelected, index, value }) => {
+export const Square = ({ updateBoard, linesSelected, index, value, invisible }) => {
   const handleLineClick = (borderIndex) => {
     const newLinesSelected = [...linesSelected]
     newLinesSelected[borderIndex] = true
@@ -10,7 +10,7 @@ export const Square = ({ updateBoard, linesSelected, index, value }) => {
   }
 
   return (
-    <div className="square">
+    <div className={`square ${invisible ? 'invisible' : ''}`}>
         <div
         className={`line top ${linesSelected[0] ? 'selected' : ''}`}
         onClick={() => handleLineClick(0)}

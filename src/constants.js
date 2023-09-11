@@ -3,12 +3,30 @@ export const TURNS = { // turnos
   O: '🍰'
 }
 
-export const BOARD = [[{ linesSelected: [true, false, false, true], value: '' },
-  { linesSelected: [true, false, false, false], value: '' },
-  { linesSelected: [true, true, false, false], value: '' }],
-[{ linesSelected: [false, false, false, true], value: '' },
-  { linesSelected: [false, false, false, false], value: '' },
-  { linesSelected: [false, true, false, false], value: '' }],
-[{ linesSelected: [false, false, true, true], value: '' },
-  { linesSelected: [false, false, true, false], value: '' },
-  { linesSelected: [false, true, true, false], value: '' }]]
+// 0: top, 1: right, 2: bottom, 3: left
+export const INVISIBLE_SQUARE = { linesSelected: [false, false, false, false], value: '', invisible: true }
+export const BLANK_SQUARE = { linesSelected: [false, false, false, false], value: '', invisible: false }
+export const TOP_LEFT_SQUARE = { linesSelected: [true, false, false, true], value: '', invisible: false }
+export const TOP_RIGHT_SQUARE = { linesSelected: [true, true, false, false], value: '', invisible: false }
+export const BOTTOM_LEFT_SQUARE = { linesSelected: [false, false, true, true], value: '', invisible: false }
+export const BOTTOM_RIGHT_SQUARE = { linesSelected: [false, true, true, false], value: '', invisible: false }
+export const BOTTOM_LEFT_RIGHT_SQUARE = { linesSelected: [true, true, true, true], value: TURNS.X, invisible: false }
+export const TOP_LEFT_RIGHT_SQUARE = { linesSelected: [true, true, true, true], value: TURNS.X, invisible: false }
+export const LEFT_TOP_BOTTOM_SQUARE = { linesSelected: [true, true, true, true], value: TURNS.O, invisible: false }
+export const RIGHT_TOP_BOTTOM_SQUARE = { linesSelected: [true, true, true, true], value: TURNS.O, invisible: false }
+export const LEFT_SQUARE = { linesSelected: [false, false, false, true], value: '', invisible: false }
+export const RIGHT_SQUARE = { linesSelected: [false, true, false, false], value: '', invisible: false }
+export const TOP_SQUARE = { linesSelected: [true, false, false, false], value: '', invisible: false }
+export const BOTTOM_SQUARE = { linesSelected: [false, false, true, false], value: '', invisible: false }
+
+export const BOARD = [[INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, TOP_LEFT_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, TOP_LEFT_SQUARE, TOP_SQUARE, TOP_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, TOP_LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, TOP_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, TOP_LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, TOP_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, TOP_LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, TOP_RIGHT_SQUARE, INVISIBLE_SQUARE],
+  [LEFT_TOP_BOTTOM_SQUARE, LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, RIGHT_SQUARE, RIGHT_TOP_BOTTOM_SQUARE],
+  [INVISIBLE_SQUARE, BOTTOM_LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BOTTOM_RIGHT_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, BOTTOM_LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BOTTOM_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, BOTTOM_LEFT_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BLANK_SQUARE, BOTTOM_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, BOTTOM_LEFT_SQUARE, BOTTOM_SQUARE, BOTTOM_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE],
+  [INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, BOTTOM_LEFT_RIGHT_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE, INVISIBLE_SQUARE]]

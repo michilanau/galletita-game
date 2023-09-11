@@ -60,6 +60,7 @@ function App () {
                   updateBoard={updateBoard}
                   linesSelected={square.linesSelected}
                   value={square.value}
+                  invisible={square.invisible}
                 />
               )
             })
