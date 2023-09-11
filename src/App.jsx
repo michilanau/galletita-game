@@ -49,7 +49,7 @@ function App () {
   return (
     <div className="board" >
       <h1>Galletita game</h1>
-      <section className='game3x3'>
+      <section className='game'>
         {
           board.map((row, rowIndex) => (
             row.map((square, columnIndex) => {
