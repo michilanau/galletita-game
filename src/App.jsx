@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Square } from './components/Square'
-import { checkEndGame, countPoints, updateAdjacentBorders, updateBoardValues } from './logic/board.js'
+import { checkEndGame, countPoints, updateAdjacentLines, updateBoardValues } from './logic/board.js'
 import { TURNS, BOARD } from './constants'
 import { TurnAndPoints } from './components/TurnAndPoints'
 import { WinnerModal } from './components/WinnerModal'
@@ -9,13 +9,14 @@ import confetti from 'canvas-confetti'
 function App () {
   const [board, setBoard] = useState(JSON.parse(JSON.stringify(BOARD)))
   const [turn, setTurn] = useState(TURNS.X)
-  const [points, setPoints] = useState({ x: 0, o: 0 })
+  const [points, setPoints] = useState({ x: 2, o: 2 })
   const [winner, setWinner] = useState(null)
 
-  const updateBoard = (linesSelected, index, borderIndex) => {
+  const updateBoard = (lines, index, lineIndex) => {
     let newBoard = [...board]
-    newBoard[index[0]][index[1]].linesSelected = linesSelected
-    newBoard = updateAdjacentBorders(newBoard, index, borderIndex)
+    lines[lineIndex].style = turn === TURNS.X ? 'red' : 'blue'
+    newBoard[index[0]][index[1]].lines = lines
+    newBoard = updateAdjacentLines(newBoard, index, lineIndex)
     newBoard = updateBoardValues(newBoard, turn)
     const newPoints = countPoints(newBoard, points)
     if (newPoints.x === points.x && newPoints.o === points.o) {
@@ -26,7 +27,7 @@ function App () {
     setBoard(newBoard)
 
     if (checkEndGame(newBoard)) {
-      if (newPoints.o === newPoints.y) {
+      if (newPoints.o === newPoints.x) {
         setWinner(false)
       } else {
         confetti()
@@ -58,9 +59,8 @@ function App () {
                   key={rowIndex + '' + columnIndex}
                   index={[rowIndex, columnIndex]}
                   updateBoard={updateBoard}
-                  linesSelected={square.linesSelected}
+                  lines={square.lines}
                   value={square.value}
-                  invisible={square.invisible}
                 />
               )
             })
