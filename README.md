@@ -13,9 +13,6 @@ Galletita Game is a simple turn-based game.
 - The game ends when there are no more possible plays.
 - The player with the most points wins.
 
-![Galletita Game - Google Chrome 2023-10-16 18-56-18 (2)](https://github.com/michilanau/galletita-game/assets/106178261/cfebaf49-8c75-41e3-a7d3-dcd12cbb2192)
-
-
 # ⚙ Technologies
 - React
 - JavaScript
@@ -23,3 +20,6 @@ Galletita Game is a simple turn-based game.
 - Node.js
 - Html
 - CSS
+
+# 🚀 Development deploy
+`npm run dev`
