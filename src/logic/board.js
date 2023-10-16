@@ -1,86 +1,64 @@
 import { TURNS } from '../constants.js'
 
-// A esto se le tiene que hacer un refactor
-export const updateAdjacentLines = (board, index, lineIndex, turn) => {
-  const top = 0
-  const right = 1
-  const bottom = 2
-  const left = 3
+export const updateAdjacentLines = (board, index, lineIndex) => {
   const newBoard = [...board]
   const square = board[index[0]][index[1]]
+  const directions = [[-1, 0], [0, 1], [1, 0], [0, -1]] // [top, right, bottom, left]
 
-  if (lineIndex === top) {
-    if (checkValidIndex(index[0] - 1, index[1], newBoard)) {
-      newBoard[index[0] - 1][index[1]].lines[2] = square.lines[lineIndex]
-    }
-  }
+  const adjacentX = index[0] + directions[lineIndex][0]
+  const adjacentY = index[1] + directions[lineIndex][1]
 
-  if (lineIndex === right) {
-    if (checkValidIndex(index[0], index[1] + 1, newBoard)) {
-      newBoard[index[0]][index[1] + 1].lines[3] = square.lines[lineIndex]
-    }
-  }
-
-  if (lineIndex === bottom) {
-    if (checkValidIndex(index[0] + 1, index[1], newBoard)) {
-      newBoard[index[0] + 1][index[1]].lines[0] = square.lines[lineIndex]
-    }
-  }
-
-  if (lineIndex === left) {
-    if (checkValidIndex(index[0], index[1] - 1, newBoard)) {
-      newBoard[index[0]][index[1] - 1].lines[1] = square.lines[lineIndex]
-    }
+  if (directions[lineIndex] && checkValidIndex(adjacentX, adjacentY, newBoard)) {
+    newBoard[adjacentX][adjacentY].lines[getAdjacentLineIndex(lineIndex)] = square.lines[lineIndex]
   }
 
   return newBoard
 }
 
-const checkValidIndex = (row, column, board) => {
-  if (row >= 0 && row < board.length && column >= 0 && column < board[row].length) {
-    return true
-  } else {
-    return false
+const getAdjacentLineIndex = (lineIndex) => {
+  if (lineIndex === 0) {
+    return 2
+  } else if (lineIndex === 1) {
+    return 3
+  } else if (lineIndex === 2) {
+    return 0
+  } else if (lineIndex === 3) {
+    return 1
   }
+}
+
+const checkValidIndex = (row, column, board) => {
+  return (row >= 0 && row < board.length && column >= 0 && column < board[row].length)
 }
 
 export const updateBoardValues = (board, turn) => {
   const newBoard = [...board]
-  let allTrue = true
 
-  for (let i = 0; i < newBoard.length; i++) {
-    for (let j = 0; j < newBoard[i].length; j++) {
-      allTrue = true
-      for (let n = 0; n < 4 && allTrue; n++) {
-        if (!newBoard[i][j].lines[n].selected) {
-          allTrue = false
-        }
+  newBoard.forEach((row) => {
+    row.forEach((square) => {
+      if (square.lines.every((line) => line.selected) && square.value === '') {
+        square.value = turn
       }
-      if (allTrue && newBoard[i][j].value === '') {
-        newBoard[i][j].value = turn
-      }
-    }
-  }
+    })
+  })
+
   return newBoard
 }
 
-export const countPoints = (board) => {
-  const newPoints = { x: 0, o: 0 }
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board[i].length; j++) {
-      if (board[i][j].value === TURNS.X) {
-        newPoints.x++
-      } else if (board[i][j].value === TURNS.O) {
-        newPoints.o++
-      }
+export const countPoints = (board) => board.reduce((points, row) =>
+  row.reduce((sum, square) => {
+    if (square.value === TURNS.X) {
+      sum.x++
+    } else if (square.value === TURNS.O) {
+      sum.o++
     }
-  }
-  return newPoints
-}
+    return sum
+  }, points), { x: 0, o: 0 })
 
 export const checkEndGame = (board) => {
-  return board
-    .flat()
-    .filter((cell) => !cell.invisible)
-    .every((cell) => cell.lines.every((line) => line.selected === true))
+  return !board.flat().some(cell =>
+    cell.lines.some(linea =>
+      !linea.selected && linea.style !== 'invisible'
+    )
+  )
 }
