@@ -18,7 +18,7 @@ Galletita Game is a simple turn-based game.
 - JavaScript
 - Vite
 - Node.js
-- Html
+- HTML
 - CSS
 
 # 🚀 Development deploy
