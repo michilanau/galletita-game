@@ -43,7 +43,7 @@ function App () {
   const resetGame = () => {
     setBoard(JSON.parse(JSON.stringify(BOARD)))
     setTurn(TURNS.X)
-    setPoints({ x: 0, o: 0 })
+    setPoints({ x: 2, o: 2 })
     setWinner(null)
   }
 
