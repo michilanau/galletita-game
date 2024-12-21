@@ -23,3 +23,6 @@ Galletita Game is a simple turn-based game.
 
 # 🚀 Development deploy
 `npm run dev`
+
+# 🏌️‍♂️ Try it out!
+https://michilanau.github.io/galletita-game/
